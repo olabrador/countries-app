@@ -1,0 +1,68 @@
+{
+  "api": {
+    "GetCountriesInfo": {
+      "dependsOn": [
+        {
+          "attributes": [
+            "Name",
+            "Arn"
+          ],
+          "category": "function",
+          "resourceName": "getCountryInformation"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "API Gateway"
+    }
+  },
+  "function": {
+    "getCountryInformation": {
+      "build": true,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
+    }
+  },
+  "parameters": {
+    "AMPLIFY_function_getCountryInformation_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getCountryInformation"
+        }
+      ]
+    },
+    "AMPLIFY_function_getCountryInformation_rdsDbname": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getCountryInformation"
+        }
+      ]
+    },
+    "AMPLIFY_function_getCountryInformation_rdsPort": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getCountryInformation"
+        }
+      ]
+    },
+    "AMPLIFY_function_getCountryInformation_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getCountryInformation"
+        }
+      ]
+    },
+    "AMPLIFY_function_getCountryInformation_secretsPathAmplifyAppId": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "getCountryInformation"
+        }
+      ]
+    }
+  }
+}

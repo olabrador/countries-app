@@ -1,0 +1,29 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-countriesapp-dev-897f8-authRole",
+      "UnauthRoleArn": "arn:aws:iam::339713057915:role/amplify-countriesapp-dev-897f8-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::339713057915:role/amplify-countriesapp-dev-897f8-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-countriesapp-dev-897f8-deployment",
+      "UnauthRoleName": "amplify-countriesapp-dev-897f8-unauthRole",
+      "StackName": "amplify-countriesapp-dev-897f8",
+      "StackId": "arn:aws:cloudformation:us-east-1:339713057915:stack/amplify-countriesapp-dev-897f8/eea62100-12ff-11ef-8086-0eaad7836e7b",
+      "AmplifyAppId": "d2l0hq3idd402h"
+    },
+    "categories": {
+      "function": {
+        "getCountryInformation": {
+          "rdsDbname": "countries",
+          "rdsPort": "5432",
+          "secretsPathAmplifyAppId": "d2l0hq3idd402h",
+          "deploymentBucketName": "amplify-countriesapp-dev-897f8-deployment",
+          "s3Key": "amplify-builds/getCountryInformation-71466764772f72654977-build.zip"
+        }
+      },
+      "api": {
+        "GetCountriesInfo": {}
+      }
+    }
+  }
+}
