@@ -18,7 +18,7 @@
           "rdsPort": "5432",
           "secretsPathAmplifyAppId": "d2l0hq3idd402h",
           "deploymentBucketName": "amplify-countriesapp-dev-897f8-deployment",
-          "s3Key": "amplify-builds/getCountryInformation-71466764772f72654977-build.zip"
+          "s3Key": "amplify-builds/getCountryInformation-6e585877377446516c78-build.zip"
         }
       },
       "api": {
