@@ -5,7 +5,7 @@
   "dependencies": {
     "@aws-amplify/ui-react": "^6.1.10",
     "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
+    "@testing-library/react": "^15.0.7",
     "@testing-library/user-event": "^13.2.1",
     "@types/jest": "^27.0.1",
     "@types/node": "^16.7.13",
@@ -23,7 +23,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test-web": "react-scripts test",
+    "test-api": "jest --config jest.config.api.js",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
