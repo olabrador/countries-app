@@ -1,5 +1,8 @@
 import { get } from 'aws-amplify/api';
 import { Country } from '../types';
+import { useEffect, useState } from 'react';
+import { useAlert } from '../context';
+import { AlertProps } from '@aws-amplify/ui-react';
 
 export interface PaginatedCountries {
   metadata: {
@@ -10,8 +13,18 @@ export interface PaginatedCountries {
   data: Country[];
 }
 
+interface UseCountriesProps {
+  setLoading: (loading: boolean) => void;
+  page: number;
+}
+
+interface UseCountriesResult {
+  totalPages: number;
+  countries: Country[];
+}
+
 const apiCalls = {
-  getCountryInformation: async (page?: number): Promise<PaginatedCountries> => {
+  getCountryInformation: async (onError: (alert: AlertProps) => void, page?: number): Promise<PaginatedCountries> => {
     try {
       const response = await get({
         apiName: 'GetCountriesInfo',
@@ -27,10 +40,14 @@ const apiCalls = {
         throw new Error('Failed to fetch countries');
       }
       const countriesData = await response.body.json() as never;
-      console.log('getCountryInformation::data', countriesData);
       return countriesData;
     } catch (error) {
       console.error('getCountryInformation::error', error);
+      onError({
+        variation: 'error',
+        children: 'Failed to fetch countries',
+        heading: 'Error',
+      });
       return {
         metadata: {
           page: 0,
@@ -43,4 +60,26 @@ const apiCalls = {
   },
 };
 
-export default apiCalls;
+export default function useCountries({ setLoading, page }: UseCountriesProps): UseCountriesResult {
+  const [totalPages, setTotalPages] = useState(0);
+  const [countries, setCountries] = useState<Country[]>([]);
+  const { setAlert } = useAlert();
+  useEffect(() => {
+    const fetchCountries = async () => {
+      setLoading(true);
+      const result = await apiCalls.getCountryInformation(setAlert, page);
+      setCountries(result.data);
+      setTotalPages(
+        Math.ceil(result.metadata.total_registers / result.metadata.rows)
+      );
+      setLoading(false);
+    };
+
+    fetchCountries();
+  }, [page, setLoading, setAlert]);
+
+  return {
+    totalPages,
+    countries,
+  };
+}
