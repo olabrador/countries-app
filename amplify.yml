@@ -2,6 +2,10 @@ version: 1
 
 backend:
     phases:
+        preBuild:
+            commands:
+                - yarn install --frozen-lockfile
+                - yarn test-api
         build:
             commands:
                 - '# Execute Amplify CLI with the helper script'
@@ -12,9 +16,10 @@ frontend:
         preBuild:
             commands:
                 - yarn install --frozen-lockfile
+                - yarn test-web --watchAll=false
         build:
             commands:
-                - yarn test-api && yarn test-web && yarn run build
+                - yarn run build
     artifacts:
         baseDirectory: build
         files:
