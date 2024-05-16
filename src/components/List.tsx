@@ -1,12 +1,12 @@
 import {
-  Button,
   Collection,
+  Flex,
   Heading,
   Pagination,
   View,
 } from "@aws-amplify/ui-react";
 import { Country } from "../types";
-import "./List.css";
+import ListItem from "./ListItem";
 
 export interface ListProps {
   countries: Country[];
@@ -16,7 +16,7 @@ export interface ListProps {
   onPageChange: (page?: number) => void;
   loading: boolean;
   handleSelection: (country: Country) => void;
-  selected: Set<number>;
+  selected: Country[];
 }
 
 function List({
@@ -35,37 +35,38 @@ function List({
     }
   };
   return (
-    <View width="33%" height="100%" className="container">
-      <Heading level={3}>Choose Country</Heading>
-      <Collection
-        marginTop="20px"
-        type="list"
-        items={countries}
-        direction="column"
-        isDisabled={loading}
-      >
-        {(country: Country, index: number) => (
-          <Button
-            disabled={loading}
-            key={index}
-            onClick={() => handleSelection(country)}
-            className={selected.has(country.id) ? "selected" : ""}
-          >
-            {country.country_name}
-          </Button>
-        )}
-      </Collection>
-      <Pagination
-        marginTop="20px"
-        isDisabled={loading}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        hasMorePages={hasMorePages}
-        onChange={onPageChange}
-        onNext={handleNext}
-        onPrevious={() => onPageChange(currentPage - 1)}
-      />
-    </View>
+    <Flex direction="column" justifyContent="center" alignItems="center" flex="1">
+      <View>
+        <Heading level={3} textAlign="center">Choose Country</Heading>
+        <Collection
+          marginTop="10px"
+          marginBottom="10px"
+          type="list"
+          items={countries}
+          direction="column"
+          isDisabled={loading}
+        >
+          {(country: Country, index: number) => (
+            <ListItem
+              key={index}
+              country={country}
+              loading={loading}
+              selected={selected}
+              handleSelection={handleSelection}
+            />
+          )}
+        </Collection>
+        <Pagination
+          isDisabled={loading}
+          currentPage={currentPage}
+          totalPages={totalPages}
+          hasMorePages={hasMorePages}
+          onChange={onPageChange}
+          onNext={handleNext}
+          onPrevious={() => onPageChange(currentPage - 1)}
+        />
+      </View>
+    </Flex>
   );
 }
 

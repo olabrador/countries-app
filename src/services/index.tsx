@@ -19,6 +19,7 @@ const apiCalls = {
         options: {
           queryParams: {
             page: page?.toString() || '1',
+            rows: '10',
           },
         },
       }).response;

@@ -2,15 +2,16 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import apiCalls from "./services";
 import { Country } from "./types";
-import { View } from "@aws-amplify/ui-react";
+import { Button, Flex } from "@aws-amplify/ui-react";
 import List from "./components/List";
+import CountriesTable from "./components/Table";
 
 function App() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(false);
-  const [selected, setSelected] = useState<Set<number>>(new Set());
+  const [selected, setSelected] = useState<Country[]>([]);
   useEffect(() => {
     const fetchCountries = async () => {
       setLoading(true);
@@ -28,15 +29,17 @@ function App() {
     setPage(newPage || 1);
   };
   const handleSelection = (country: Country) => {
-    if (selected.has(country.id)) {
-      selected.delete(country.id);
-    } else {
-      selected.add(country.id);
+    const alreadySelected = selected.some((c) => c.id === country.id);
+    if (alreadySelected) {
+      const newSelected = selected.filter((c) => c.id !== country.id);
+      setSelected(newSelected);
+      return;
     }
-    setSelected(new Set(selected));
+
+    setSelected([...selected, country]);
   }
   return (
-    <View>
+    <Flex wrap="wrap" justifyContent="center" margin="1rem">
       <List
         handleSelection={handleSelection}
         countries={countries}
@@ -47,7 +50,13 @@ function App() {
         loading={loading}
         selected={selected}
       />
-    </View>
+      <Flex direction="column" alignItems="center" flex="2" width="100%">
+        <CountriesTable countries={selected} />
+        <Button alignSelf="flex-end" onClick={() => window.print()}>
+          Download PDF
+        </Button>
+      </Flex>
+    </Flex>
   );
 }
 
