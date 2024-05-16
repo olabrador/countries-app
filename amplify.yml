@@ -1,18 +1,5 @@
 version: 1
 
-test:
-    phases:
-        preTest:
-            commands:
-                - yarn install --frozen-lockfile
-        test:
-            commands:
-                - yarn test-api
-                - yarn test-web
-    cache:
-        paths:
-            - 'node_modules/**/*'
-
 backend:
     phases:
         build:
@@ -27,7 +14,7 @@ frontend:
                 - yarn install --frozen-lockfile
         build:
             commands:
-                - yarn run build
+                - yarn test-api && yarn test-web && yarn run build
     artifacts:
         baseDirectory: build
         files:
