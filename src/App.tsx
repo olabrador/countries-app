@@ -1,33 +1,20 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import "./App.css";
-import apiCalls from "./services";
 import { Country } from "./types";
 import { Button, Flex } from "@aws-amplify/ui-react";
 import List from "./components/List";
 import CountriesTable from "./components/Table";
 import html2canvas from "html2canvas";
 import jsPDF from "jspdf";
+import AlertProvider from "./context";
+import useCountries from "./services";
 
-function App() {
+function ViewCountries() {
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [countries, setCountries] = useState<Country[]>([]);
   const [loading, setLoading] = useState(false);
   const [selected, setSelected] = useState<Country[]>([]);
   const tableRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    const fetchCountries = async () => {
-      setLoading(true);
-      const result = await apiCalls.getCountryInformation(page);
-      setCountries(result.data);
-      setTotalPages(
-        Math.ceil(result.metadata.total_registers / result.metadata.rows)
-      );
-      setLoading(false);
-    };
-
-    fetchCountries();
-  }, [page]);
+  const { countries, totalPages } = useCountries({ page, setLoading });
   const handlePageChange = (newPage?: number) => {
     setPage(newPage || 1);
   };
@@ -67,7 +54,6 @@ function App() {
       pdf.save("download.pdf"); 
     });
   };
-
   return (
     <Flex wrap="wrap" justifyContent="center" margin="1rem">
       <List
@@ -87,6 +73,14 @@ function App() {
         </Button>
       </Flex>
     </Flex>
+  );
+}
+
+function App() {
+  return (
+    <AlertProvider>
+      <ViewCountries />
+    </AlertProvider>
   );
 }
 
