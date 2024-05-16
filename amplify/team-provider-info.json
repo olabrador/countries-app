@@ -23,6 +23,12 @@
       },
       "api": {
         "GetCountriesInfo": {}
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d2l0hq3idd402h",
+          "type": "cicd"
+        }
       }
     }
   }
