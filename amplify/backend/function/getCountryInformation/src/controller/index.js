@@ -1,9 +1,9 @@
 const connectToDB = require("../db");
+const { isValidPagination } = require("../utils");
 
 async function getCountryInformation(req, res, next) {
   const { page = 1, rows = 10 } = req.query;
-  // Validate page and rows inputs
-  if (!Number.isInteger(Number(page)) || !Number.isInteger(Number(rows))) {
+  if (isValidPagination(page, rows)) {
     return res.status(400).json({ error: "Invalid page or rows value" });
   }
   const dbClient = await connectToDB();
