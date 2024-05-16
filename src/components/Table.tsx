@@ -6,9 +6,10 @@ import { useMemo } from "react";
 
 export interface CountriesTableProps {
   countries: Country[];
+  tableRef?: React.RefObject<HTMLDivElement>;
 }
 
-function CountriesTable({ countries }: CountriesTableProps) {
+function CountriesTable({ countries, tableRef }: CountriesTableProps) {
   const tableBody = useMemo(() => {
     if (!countries.length) {
       return (
@@ -34,7 +35,7 @@ function CountriesTable({ countries }: CountriesTableProps) {
     );
   }, [countries]);
   return (
-    <View width="100%">
+    <View width="100%" ref={tableRef}>
       <Heading level={3} textAlign="center">Data</Heading>
       <Table marginTop="10px" highlightOnHover={true} variation="striped">
         <TableHead>
