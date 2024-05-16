@@ -3,10 +3,12 @@ import {
   Flex,
   Heading,
   Pagination,
+  Text,
   View,
 } from "@aws-amplify/ui-react";
 import { Country } from "../types";
 import ListItem from "./ListItem";
+import { useCallback, useMemo } from "react";
 
 export interface ListProps {
   countries: Country[];
@@ -29,15 +31,20 @@ function List({
   handleSelection,
   selected,
 }: ListProps) {
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     if (hasMorePages) {
       onPageChange(currentPage + 1);
     }
-  };
-  return (
-    <Flex direction="column" justifyContent="center" alignItems="center" flex="1">
-      <View>
-        <Heading level={3} textAlign="center">Choose Country</Heading>
+  }, [hasMorePages, onPageChange, currentPage]);
+  const contents = useMemo(() => {
+    if (!countries.length) {
+      return (
+        <Text fontSize="1rem" textAlign="center">No countries to select</Text>
+      );
+    }
+
+    return (
+      <>
         <Collection
           marginTop="10px"
           marginBottom="10px"
@@ -65,6 +72,24 @@ function List({
           onNext={handleNext}
           onPrevious={() => onPageChange(currentPage - 1)}
         />
+      </>
+    );
+  }, [
+    countries,
+    handleNext,
+    currentPage,
+    handleSelection,
+    hasMorePages,
+    loading,
+    onPageChange,
+    selected,
+    totalPages,
+  ]);
+  return (
+    <Flex direction="column" alignItems="center" flex="1">
+      <View>
+        <Heading level={3} textAlign="center">Choose Country</Heading>
+        {contents}
       </View>
     </Flex>
   );
