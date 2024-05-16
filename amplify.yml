@@ -1,20 +1,33 @@
 version: 1
+
+test:
+    phases:
+        preTest:
+            commands:
+                - yarn install --frozen-lockfile
+        test:
+            commands:
+                - yarn test-api
+                - yarn test-web
+    cache:
+        paths:
+            - 'node_modules/**/*'
+
 backend:
     phases:
         build:
             commands:
                 - '# Execute Amplify CLI with the helper script'
                 - 'amplifyPush --simple'
+
 frontend:
     phases:
         preBuild:
             commands:
-                - 'yarn install'
-                - 'yarn test-web'
-                - 'yarn test-api'
+                - yarn install --frozen-lockfile
         build:
             commands:
-                - 'yarn run build'
+                - yarn run build
     artifacts:
         baseDirectory: build
         files:
