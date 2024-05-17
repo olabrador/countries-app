@@ -52,6 +52,7 @@ function List({
           items={countries}
           direction="column"
           isDisabled={loading}
+          alignItems="center"
         >
           {(country: Country, index: number) => (
             <ListItem

@@ -55,7 +55,7 @@ function ViewCountries() {
     });
   };
   return (
-    <Flex wrap="wrap" justifyContent="center" margin="1rem">
+    <Flex className="App" wrap="wrap" justifyContent="center" margin="1rem">
       <List
         handleSelection={handleSelection}
         countries={countries}

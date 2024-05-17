@@ -17,6 +17,7 @@ function ListItem({ country, loading, selected, handleSelection }: ListItemProps
       disabled={loading}
       onClick={() => handleSelection(country)}
       className={`${isSelected ? "selected" : ""}`}
+      width="80%"
     >
       {country.country_name}
     </Button>

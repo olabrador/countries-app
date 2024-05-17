@@ -37,21 +37,23 @@ function CountriesTable({ countries, tableRef }: CountriesTableProps) {
   return (
     <View width="100%" ref={tableRef}>
       <Heading level={3} textAlign="center">Data</Heading>
-      <Table marginTop="10px" highlightOnHover={true} variation="striped">
-        <TableHead>
-          <TableRow>
-            <TableCell>Country</TableCell>
-            <TableCell>Performance</TableCell>
-            <TableCell>Autocratic</TableCell>
-            <TableCell>Desicive</TableCell>
-            <TableCell>Diplomatic</TableCell>
-            <TableCell>Charisma</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {tableBody}
-        </TableBody>
-      </Table>
+      <View overflow="auto">
+        <Table marginTop="10px" highlightOnHover={true} variation="striped">
+          <TableHead>
+            <TableRow>
+              <TableCell>Country</TableCell>
+              <TableCell>Performance</TableCell>
+              <TableCell>Autocratic</TableCell>
+              <TableCell>Desicive</TableCell>
+              <TableCell>Diplomatic</TableCell>
+              <TableCell>Charisma</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {tableBody}
+          </TableBody>
+        </Table>
+      </View>
     </View>
   );
 }
