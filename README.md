@@ -1,6 +1,18 @@
-# Getting Started with Create React App
+# Project Name
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a full-stack application that includes a web frontend built with [React](https://reactjs.org/), a mobile frontend built with [React Native](https://reactnative.dev/) and [Expo](https://expo.dev/), and a backend built with [AWS Amplify](https://aws.amazon.com/amplify/).
+
+## Description
+
+Provide a brief description of your project here.
+
+## Project Structure
+
+The project is structured into three main directories:
+
+- `root`: The root directory contains the React application for the web frontend.
+- `countries-mobile`: This directory contains the Expo-react native code for the mobile application. For more information, see the [countries-mobile README.md](countries-mobile/README.md).
+- `amplify`: This directory contains the AWS Amplify configuration for the backend. For more information, see the [amplify README.md](amplify/README.md).
 
 ## Available Scripts
 
@@ -14,10 +26,15 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `yarn test`
+### `yarn test-web`
 
-Launches the test runner in the interactive watch mode.\
+Runs all tests files for the web application.\
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+
+### `yarn test-api`
+
+Runs all tests files for the backend application.\
+See the section about [running tests](https://jestjs.io/docs/getting-started) for more information.
 
 ### `yarn build`
 
@@ -29,18 +46,10 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `yarn eject`
+## Contributing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If you would like to contribute to this project, please fork the repository, create a feature branch, and send a pull request.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## License
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+This project is licensed under the MIT License. See the `LICENSE` file for more information.
