@@ -28,6 +28,15 @@
       "eas": {
         "projectId": "51c8bd35-0dea-40cf-816e-e7f565290d93"
       }
-    }
+    },
+    "plugins": [
+      [
+        "@sentry/react-native/expo",
+        {
+          "organization": "orlando-mk",
+          "project": "react-native"
+        }
+      ]
+    ]
   }
 }

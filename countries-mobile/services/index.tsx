@@ -1,8 +1,8 @@
+import { useEffect, useState } from 'react';
+import { Alert } from 'react-native';
+import * as Sentry from '@sentry/react-native';
 import { get } from 'aws-amplify/api';
 import { Country } from '../types';
-import { useEffect, useState } from 'react';
-// import { useAlert } from '../context';
-// import { AlertProps } from '@aws-amplify/ui-react';
 
 export interface PaginatedCountries {
   metadata: {
@@ -24,7 +24,7 @@ interface UseCountriesResult {
 }
 
 const apiCalls = {
-  getCountryInformation: async (onError: (alert: any) => void, page?: number): Promise<PaginatedCountries> => {
+  getCountryInformation: async (page?: number): Promise<PaginatedCountries> => {
     try {
       const response = await get({
         apiName: 'GetCountriesInfo',
@@ -41,13 +41,11 @@ const apiCalls = {
       }
       const countriesData = await response.body.json() as never;
       return countriesData;
-    } catch (error) {
+    } catch (error: any) {
       console.error('getCountryInformation::error', error);
-      onError({
-        variation: 'error',
-        children: 'Failed to fetch countries',
-        heading: 'Error',
-      });
+      const errorMessage = error?.message || 'Failed to fetch countries';
+      Alert.alert('Error', errorMessage);
+      Sentry.captureException(error);
       return {
         metadata: {
           page: 0,
@@ -63,11 +61,10 @@ const apiCalls = {
 export default function useCountries({ setLoading, page }: UseCountriesProps): UseCountriesResult {
   const [totalPages, setTotalPages] = useState(0);
   const [countries, setCountries] = useState<Country[]>([]);
-  // const { setAlert } = useAlert();
   useEffect(() => {
     const fetchCountries = async () => {
       setLoading(true);
-      const result = await apiCalls.getCountryInformation(() => {}, page);
+      const result = await apiCalls.getCountryInformation(page);
       setCountries(result.data);
       setTotalPages(
         Math.ceil(result.metadata.total_registers / result.metadata.rows)

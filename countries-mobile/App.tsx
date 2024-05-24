@@ -5,6 +5,13 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Table from './views/Table';
 import { CountriesProvider } from './context/countries';
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://8532d3fde79c397998a79a633d6636c1@o4507312635117568.ingest.us.sentry.io/4507312636821504',
+  debug: false,
+});
+
 Amplify.configure(amplifyconfig);
 
 export type RootStackParamList = {
@@ -14,7 +21,7 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-export default function App() {
+function App() {
   return (
     <NavigationContainer>
       <CountriesProvider>
@@ -26,3 +33,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default Sentry.wrap(App);
